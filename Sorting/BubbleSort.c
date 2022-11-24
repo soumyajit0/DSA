@@ -25,7 +25,7 @@ int main()
     int arr[arraySize];
     for(it=0;it<arraySize;it++)
     {
-        printf("Enter the %d element of the array : ");
+        printf("Enter the %d element of the array : ",it+1);
         scanf("%d",&arr[it]);
     }
 
