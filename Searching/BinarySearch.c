@@ -5,7 +5,7 @@ bool binarySearch(int arr[], int arraySize, int searchElement)
 {
     int lowerBound=0;
     int upperBound=arraySize-1;
-    while(lowerBound<upperBound)
+    while(lowerBound<=upperBound)
     {
         int mid=(lowerBound+upperBound)/2;
         if (arr[mid]==searchElement)
