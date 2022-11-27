@@ -9,6 +9,15 @@ struct node
     struct node *right;
 };
 
+struct node* FindMin(struct node* root)
+{
+	while(root->left != NULL)
+    {
+        root = root->left;
+    }
+	return root;
+}
+
 struct node * insert(struct node *root)
 {
     int value;
@@ -58,18 +67,48 @@ struct node * insert(struct node *root)
     return root;
 }
 
-struct node * delete(struct node *root)
+struct node * delete(struct node *root,int value)
 {
     if (root==NULL)
     {
         printf("Empty Tree\n");
         return root;
     }
-    int value;
-    printf("Enter the value to be deleted : ");
-    scanf("%d",&value);
-    
-    //Code
+    else if (value<root->data)
+    {
+        root->left=delete(root->left,value);
+    }
+    else if (value>root->data)
+    {
+        root->right=delete(root,value);
+    }
+    else{
+        // Case 1 : No Child
+        if (root->left==NULL && root->right==NULL)
+        {
+            free(root);
+            root=NULL;
+        }
+        // Case 2 : One Child
+        else if (root->left==NULL)
+        {
+            struct node *temp=root;
+            root=root->right;
+            free(temp);
+        }
+        else if (root->right==NULL)
+        {
+            struct node *temp=root;
+            root=root->left;
+            free(temp);
+        }
+        // Case 3 : Two Child
+        else{
+            struct node *temp = FindMin(root->right);
+			root->data = temp->data;
+			root->right = delete(root->right,temp->data);
+        }
+    }
     
     return root;
 }
@@ -128,7 +167,10 @@ int main()
                 root=insert(root);
                 break;
             case 2:
-                root=delete(root);
+                int value;
+                printf("Enter the value to be deleted : ");
+                scanf("%d",&value);
+                root=delete(root,value);
                 break;
             case 3:
                 printf("Preorder Traversal : \n");
