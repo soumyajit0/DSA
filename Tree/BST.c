@@ -9,13 +9,75 @@ struct node
     struct node *right;
 };
 
-struct node* FindMin(struct node* root)
+int max(int a,int b)
+{
+    if (a>b)
+    {
+        return a;
+    }
+    else
+    {
+        return b;
+    }
+}
+
+int height(struct node *root)
+{
+    if (root==NULL)
+    {
+        return 0;
+    }
+    return max(height(root->left),height(root->right))+1;
+}
+
+int findSize(struct node *root)
+{
+    if (root==NULL)
+    {
+        return 0;
+    }
+    return findSize(root->left)+findSize(root->right)+1;
+}
+
+struct node* findMin(struct node* root)
 {
 	while(root->left != NULL)
     {
-        root = root->left;
+        root=root->left;
     }
 	return root;
+}
+
+int minBST(struct node *root)
+{
+    while(root->left!=NULL)
+    {
+        root=root->left;
+    }
+    return root->data;
+}
+
+int maxBST(struct node *root)
+{
+    while(root->right!=NULL)
+    {
+        root=root->right;
+    }
+    return root->data;
+}
+
+void kBST(struct node *root,int k)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    if(k==0)
+    {
+        printf("%d ",root->data);
+    }
+    kBST(root->left,k-1);
+    kBST(root->right,k-1);
 }
 
 struct node * insert(struct node *root)
@@ -104,7 +166,7 @@ struct node * delete(struct node *root,int value)
         }
         // Case 3 : Two Child
         else{
-            struct node *temp = FindMin(root->right);
+            struct node *temp = findMin(root->right);
 			root->data = temp->data;
 			root->right = delete(root->right,temp->data);
         }
@@ -158,7 +220,12 @@ int main()
         printf("Press 3 for Preorder Transversal\n");
         printf("Press 4 for Inorder Traversal\n");
         printf("Press 5 for Postorder Traversal\n");
-        printf("Press 6 to Exit\n");
+        printf("Press 6 to find Height\n");
+        printf("Press 7 to find the size of Binary Search Tree\n");
+        printf("Press 8 to find the minimum value\n");
+        printf("Press 9 to find the maximum value\n");
+        printf("Press 10 to diplay nodes at k distance\n");
+        printf("Press 11 to Exit\n");
         printf("\nEnter your choice : ");
         scanf("%d",&choice);
         switch(choice)
@@ -168,26 +235,51 @@ int main()
                 break;
             case 2:
                 int value;
-                printf("Enter the value to be deleted : ");
+                printf("\nEnter the value to be deleted : ");
                 scanf("%d",&value);
                 root=delete(root,value);
                 break;
             case 3:
-                printf("Preorder Traversal : \n");
+                printf("\nPreorder Traversal : \n");
                 preOrder(root);
                 break;
             case 4:
-                printf("Inorder Traversal : \n");
+                printf("\nInorder Traversal : \n");
                 inOrder(root);
                 break;
             case 5:
-                printf("Postorder Traversal : \n");
+                printf("\nPostorder Traversal : \n");
                 postOrder(root);
                 break;
             case 6:
+                printf("\nThe Height is : %d\n",height(root));
+                break;
+            case 7:
+                printf("\nThe Size of the Binary Search Tree is : %d\n",findSize(root));
+                break;
+            case 8:
+                printf("\nThe Minimum Value : %d\n",minBST(root));
+                break;
+            case 9:
+                printf("\nThe Maximum Value : %d\n",maxBST(root));
+                break;
+            case 10:
+                int k;
+                printf("Enter the value of k : ");
+                scanf("%d",&k);
+                if (k>height(root))
+                {
+                    printf("k cannot be less than the height of the Tree\n");
+                }
+                else
+                {
+                    kBST(root,k);
+                }
+                break;
+            case 11:
                 return 0;
             default:
-                printf("Invalid choice. Try again.\n");
+                printf("\nInvalid choice. Try again.\n");
         }
     }
 
