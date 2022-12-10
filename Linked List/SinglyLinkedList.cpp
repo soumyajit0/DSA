@@ -11,19 +11,72 @@ struct node * insertBeg(struct node *head)
 {
     int n;
     struct node *temp=(struct node *)malloc(sizeof(struct node));
-    cout << "Enter the value to be inserted : ";
+    cout << "Enter the value to be inserted at the beginning : ";
     cin >> n;
     temp->data=n;
     temp->next=head;
     return temp;
 }
 
+struct node * insertEnd(struct node *head)
+{
+    int n;
+    struct node *temp=(struct node *)malloc(sizeof(struct node));
+    cout << "Enter the value to be inserted at the end : ";
+    cin >> n;
+    temp->data=n;
+    temp->next=NULL;
+    struct node *ptr=head;
+    while(ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=temp;
+    return head;
+}
+
+struct node * deleteBeg(struct node *head)
+{
+    if(head==NULL)
+    {
+        cout << "Linkedlist is already empty\n";
+        return head;
+    }
+    struct node *temp=head->next;
+    free(head);
+    return temp;
+}
+
+struct node * deleteEnd(struct node *head)
+{
+    //When No. of Nodes = 0
+    if(head==NULL){
+        cout << "Linkedlist is already empty\n";
+        return head;
+    }
+    //When No. of Nodes = 1
+    else if(head->next==NULL)
+    {
+        free(head);
+        return NULL;
+    }
+    //When No. of Nodes > 1
+    struct node *temp=head;
+    while(temp->next->next!=NULL){
+        temp=temp->next;
+    }
+    free(temp->next);
+    temp->next=NULL;
+    return head;
+}
+
 void display(struct node *head)
 {
-    while(head!=NULL)
+    struct node *ptr=head;
+    while(ptr!=NULL)
     {
-        cout << head->data << " ";
-        head=head->next;
+        cout << ptr->data << " ";
+        ptr=ptr->next;
     }
     cout << endl;
 }
@@ -48,6 +101,15 @@ int main()
         {
             case 1:
                 head=insertBeg(head);
+                break;
+            case 2:
+                head=insertEnd(head);
+                break;
+            case 3:
+                head=deleteBeg(head);
+                break;
+            case 4:
+                head=deleteEnd(head);
                 break;
             case 5:
                 display(head);
