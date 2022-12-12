@@ -7,12 +7,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-struct node
-{
-    int data;
-    int next;
-};
-
 void dfs(int graph[][5], int visited[5], int vertices, int node)
 {
     int it;
@@ -41,6 +35,7 @@ int main()
     int visited[5]={0,0,0,0,0};
     printf("The DFS Traversal : \n");
     dfs(graph, visited, vertices, 1);
+    printf("\n");
 
     return 0;
 }
