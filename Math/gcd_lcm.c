@@ -1,5 +1,7 @@
 #include<stdio.h>
 
+//Euclidean Algorithm
+
 int gcd(int a,int b)
 {
     if(b==0)
