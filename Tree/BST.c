@@ -165,10 +165,11 @@ struct node * delete(struct node *root,int value)
             free(temp);
         }
         // Case 3 : Two Child
-        else{
+        else
+	{
             struct node *temp = findMin(root->right);
-			root->data = temp->data;
-			root->right = delete(root->right,temp->data);
+	    root->data = temp->data;
+	    root->right = delete(root->right,temp->data);
         }
     }
     
