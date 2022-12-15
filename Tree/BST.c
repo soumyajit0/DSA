@@ -41,11 +41,11 @@ int findSize(struct node *root)
 
 struct node* findMin(struct node* root)
 {
-	while(root->left != NULL)
+    while(root->left != NULL)
     {
         root=root->left;
     }
-	return root;
+    return root;
 }
 
 int minBST(struct node *root)
