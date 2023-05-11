@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> bellman_ford(int vertices, vector<vector<int>> adj, int src)
+{
+    vector<int> distance(vertices, INT_MAX);
+    distance[src] = 0;
+    for (int i = 0; i < vertices - 1; i++)
+    {
+        int u, v, w;
+        for (auto it : adj)
+        {
+            u = it[0];
+            v = it[1];
+            w = it[2];
+            if (distance[u] != INT_MAX && (distance[u] + w) < distance[v])
+            {
+                distance[v] = distance[u] + w;
+            }
+        }
+    }
+    return distance;
+}
+
+int main()
+{
+    int n, vertices, src;
+    cout << "Enter no. of Edges and Vertices : ";
+    cin >> n >> vertices;
+    vector<vector<int>> adj(n, vector<int>(3, 0));
+    cout << "Enter the Parent Vertex, Desitination Vertex and Edge Weight : \n";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> adj[i][0] >> adj[i][1] >> adj[i][2];
+    }
+    cout << "Enter the Source Vertex : ";
+    cin >> src;
+    vector<int> distance = bellman_ford(n, adj, src);
+    cout << "Minimum Distance : \n";
+    for (int i = 0; i < vertices; i++)
+    {
+        if (i == src)
+            continue;
+        cout << src << " -> " << i << " = " << distance[i] << endl;
+    }
+    return 0;
+}
