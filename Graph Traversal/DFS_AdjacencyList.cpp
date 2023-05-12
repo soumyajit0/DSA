@@ -26,10 +26,10 @@ vector<int> dfs(int n, vector<int> adj[])
 int main()
 {
     int n, m;
-    cout << "Enter no. of node and edges : ";
+    cout << "Enter no. of Vertices and Edges : ";
     cin >> n >> m;
     vector<int> adj[n];
-    cout << "Enter the edges : \n";
+    cout << "Enter the Edges : \n";
     for (int i = 0; i < m; i++)
     {
         int u, v;
