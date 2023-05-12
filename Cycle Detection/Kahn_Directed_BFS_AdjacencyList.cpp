@@ -28,7 +28,9 @@ bool kahn(int V, int E, vector<vector<int>> adj)
         for (auto it : adj[node])
         {
             if ((--inDegree[it]) == 0)
+            {
                 q.push(it);
+            }
         }
     }
     if (count != V)
