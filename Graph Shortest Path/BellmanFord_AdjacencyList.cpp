@@ -3,11 +3,11 @@ using namespace std;
 
 vector<int> bellman_ford(int vertices, vector<vector<int>> adj, int src)
 {
+    int u, v, w;
     vector<int> distance(vertices, INT_MAX);
     distance[src] = 0;
     for (int i = 0; i < vertices - 1; i++)
     {
-        int u, v, w;
         for (auto it : adj)
         {
             u = it[0];
@@ -17,6 +17,16 @@ vector<int> bellman_ford(int vertices, vector<vector<int>> adj, int src)
             {
                 distance[v] = distance[u] + w;
             }
+        }
+    }
+    for (auto it : adj)
+    {
+        u = it[0];
+        v = it[1];
+        w = it[2];
+        if (distance[u] != INT_MAX && (distance[u] + w) < distance[v])
+        {
+            return {INT_MIN};
         }
     }
     return distance;
@@ -36,6 +46,11 @@ int main()
     cout << "Enter the Source Vertex : ";
     cin >> src;
     vector<int> distance = bellman_ford(n, adj, src);
+    if (distance.size() == 1 && distance[0] == INT_MIN)
+    {
+        cout << "Negative Cycle exists\n";
+        return 0;
+    }
     cout << "Minimum Distance : \n";
     for (int i = 0; i < vertices; i++)
     {
