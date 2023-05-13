@@ -9,7 +9,7 @@ void display(vector<vector<int>> board)
         {
             if (board[i][j] == 1)
             {
-                cout << "Q ";
+                cout << "K ";
             }
             else
             {
@@ -22,28 +22,28 @@ void display(vector<vector<int>> board)
 
 bool isSafe(vector<vector<int>> board, int row, int col)
 {
-    for (int i = row; i >= 0; i--)
-    {
-        if (board[i][col] == 1)
-        {
-            return false;
-        }
-    }
-    for (int i = col; i >= 0; i--)
-    {
-        if (board[row][i] == 1)
-        {
-            return false;
-        }
-    }
-    for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
+    for (int i = row, j = col; i >= 0 && j >= 0; i--, j -= 2)
     {
         if (board[i][j] == 1)
         {
             return false;
         }
     }
-    for (int i = row, j = col; i >= 0 && j < board[0].size(); i--, j++)
+    for (int i = row, j = col; i >= 0 && j >= 0; i -= 2, j--)
+    {
+        if (board[i][j] == 1)
+        {
+            return false;
+        }
+    }
+    for (int i = row, j = col; i >= 0 && j < board[0].size(); i -= 2, j++)
+    {
+        if (board[i][j] == 1)
+        {
+            return false;
+        }
+    }
+    for (int i = row, j = col; i >= 0 && j < board[0].size(); i--, j += 2)
     {
         if (board[i][j] == 1)
         {
@@ -53,25 +53,26 @@ bool isSafe(vector<vector<int>> board, int row, int col)
     return true;
 }
 
-int nQueen(int row, vector<vector<int>> board)
+bool nKnight(int row, vector<vector<int>> board)
 {
     if (row == board.size())
     {
         display(board);
-        cout << endl;
-        return 1;
+        return true;
     }
-    int count = 0;
     for (int col = 0; col < board[0].size(); col++)
     {
         if (isSafe(board, row, col))
         {
             board[row][col] = 1;
-            count += nQueen(row + 1, board);
+            if (nKnight(row + 1, board))
+            {
+                return true;
+            }
             board[row][col] = 0;
         }
     }
-    return count;
+    return false;
 }
 
 int main()
@@ -80,7 +81,7 @@ int main()
     cout << "Enter the value of n : ";
     cin >> n;
     vector<vector<int>> board(n, vector<int>(n, 0));
-    if (!nQueen(0, board))
+    if (!nKnight(0, board))
     {
         cout << "No possible solution exists\n";
     }
