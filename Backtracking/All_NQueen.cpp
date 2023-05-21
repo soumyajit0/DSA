@@ -18,6 +18,7 @@ void display(vector<vector<int>> board)
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 bool isSafe(vector<vector<int>> board, int row, int col)
@@ -58,7 +59,6 @@ int nQueen(int row, vector<vector<int>> board)
     if (row == board.size())
     {
         display(board);
-        cout << endl;
         return 1;
     }
     int count = 0;
