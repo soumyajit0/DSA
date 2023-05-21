@@ -63,7 +63,7 @@ int main()
     int V, E, wt, u, v;
     cout << "Enter the no. of Vertices and Edges : ";
     cin >> V >> E;
-    vector<int> size(V + 1, 0), parent(V + 1, 0);
+    vector<int> size(V + 1, 1), parent(V + 1, 0);
     for (int i = 1; i <= V; i++)
     {
         parent[i] = i;
