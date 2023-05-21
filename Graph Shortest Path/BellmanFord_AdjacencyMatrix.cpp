@@ -12,7 +12,7 @@ vector<int> bellman_ford(int n, vector<vector<int>> adj, int src)
         {
             for (int j = 0; j < n; j++)
             {
-                if (i == j || !adj[i][j])
+                if (!adj[i][j])
                     continue;
                 u = i;
                 v = j;
