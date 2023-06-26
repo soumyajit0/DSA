@@ -1,21 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> twoSum(vector<int> &nums, int target)
+vector<int> twoSum(vector<int> &numbers, int target)
 {
-    unordered_map<int, int> hashmap;
-    vector<int> ans(2);
-    for (int i = 0; i < nums.size(); i++)
-        hashmap[nums[i]] = i;
-    for (int i = 0; i < nums.size(); i++)
+    vector<int> arr(2);
+    int n = numbers.size();
+    int i = 0, j = n - 1, sum;
+    while (i < j)
     {
-        if (hashmap.count(target - nums[i]) && hashmap.find(target - nums[i])->second != i)
+        sum = numbers[i] + numbers[j];
+        if (sum == target)
         {
-            ans[0] = i;
-            ans[1] = hashmap.find(target - nums[i])->second;
+            arr[0] = i + 1;
+            arr[1] = j + 1;
+            return arr;
         }
+        else if (sum > target)
+            j--;
+        else
+            i++;
     }
-    return ans;
+    return {-1};
 }
 
 int main()
